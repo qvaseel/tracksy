@@ -1,10 +1,9 @@
-import { Section, Cell, Image, List, Badge } from "@telegram-apps/telegram-ui";
+import { Section, Cell, List, Badge } from "@telegram-apps/telegram-ui";
 import type { FC } from "react";
 
 import { Link } from "@/components/Link/Link.tsx";
 import { Page } from "@/components/Page.tsx";
 
-import tonSvg from "./ton.svg";
 
 export const IndexPage: FC = () => {
   return (

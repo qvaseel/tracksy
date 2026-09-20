@@ -1,6 +1,10 @@
-// @ts-nocheck
 import { Navigate, Route, Routes, HashRouter } from "react-router-dom";
-import { useLaunchParams, useSignal, miniApp } from "@tma.js/sdk-react";
+import {
+  useLaunchParams,
+  useSignal,
+  miniApp,
+  useRawInitData,
+} from "@tma.js/sdk-react";
 import { AppRoot } from "@telegram-apps/telegram-ui";
 
 import { routes } from "@/navigation/routes.tsx";
@@ -10,14 +14,15 @@ import { loginWithTelegram } from "@/shared/api/auth";
 export function App() {
   const lp = useLaunchParams();
   const isDark = useSignal(miniApp.isDark);
+  const initData = useRawInitData();
 
   useEffect(() => {
-    const initData = window.Telegram?.WebApp?.initData;
-
     if (!initData) {
       console.error("Telegram initData отсутствует");
       return;
     }
+
+    console.log("initData получен:", initData);
 
     loginWithTelegram(initData)
       .then((data) => {
@@ -28,7 +33,7 @@ export function App() {
       .catch((error) => {
         console.error("Ошибка авторизации:", error);
       });
-  }, []);
+  }, [initData]);
 
   return (
     <AppRoot
